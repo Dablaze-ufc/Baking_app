@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Created by SegunFrancis
+ * Created by ChukwuwaUchenna
  */
 public final class BindingAdapters {
 
