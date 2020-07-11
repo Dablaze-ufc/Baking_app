@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.udacity.chukwuwauchenna.bakingapp.R;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
         MainActivityViewModel viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
         viewModel.recipeList.observe(this, recipes -> {
+//            Log.d("TAG", "onCreateMainActivity: " + recipes.get(0).getIngredients().get(0).getIngredient());
             RecipeAdapter adapter = new RecipeAdapter(recipes, this);
             binding.recipeRecyclerView.setAdapter(adapter);
         });

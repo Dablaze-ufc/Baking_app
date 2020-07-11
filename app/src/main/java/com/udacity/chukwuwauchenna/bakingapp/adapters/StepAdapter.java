@@ -1,5 +1,6 @@
 package com.udacity.chukwuwauchenna.bakingapp.adapters;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
 import com.udacity.chukwuwauchenna.bakingapp.R;
 import com.udacity.chukwuwauchenna.bakingapp.model.Step;
@@ -36,14 +36,20 @@ public class StepAdapter extends
         }
 
         void bind(Step step, OnStepItemClickListener listener) {
-            TextView stepText = itemView.findViewById(R.id.step_textView);
-            ImageView thumbnail = itemView.findViewById(R.id.thumbnail_imageView);
+            TextView stepText = itemView.findViewById(R.id.step_text_name);
+            ImageView thumbnail = itemView.findViewById(R.id.image_thumbnail);
+            stepText.setText(step.getShortDescription());
+            if (TextUtils.isEmpty(step.getThumbnailURL())){
+                thumbnail.setImageResource(R.drawable.ic_cupcake);
+
+            }else {
             Picasso.get().load(step.getThumbnailURL())
                     .placeholder(R.drawable.loading_animation)
                     .error(R.drawable.recipe_image)
                     .into(thumbnail);
-            stepText.setText(step.getShortDescription());
-            stepText.setOnClickListener(v -> listener.onStepItemClick(step));
+
+           }
+            stepText.setOnClickListener(v -> listener.onStepItemClicked(step));
         }
     }
 
@@ -69,6 +75,6 @@ public class StepAdapter extends
     }
 
     public interface OnStepItemClickListener {
-        void onStepItemClick(Step step);
+        void onStepItemClicked(Step step);
     }
 }

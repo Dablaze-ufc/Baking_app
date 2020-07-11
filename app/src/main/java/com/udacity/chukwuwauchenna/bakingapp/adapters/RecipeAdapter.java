@@ -1,5 +1,7 @@
 package com.udacity.chukwuwauchenna.bakingapp.adapters;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +38,17 @@ public class RecipeAdapter extends
             TextView textView = itemView.findViewById(R.id.textView_name);
             textView.setText(recipe.getName());
             ImageView imageView = itemView.findViewById(R.id.imageView_recipe);
+            Log.d("TAG", "bind: "+ recipe.getImage());
+            if (TextUtils.isEmpty(recipe.getImage())){
+               imageView.setImageResource(R.drawable.recipe_image);
+
+            }else {
            Picasso.get()
                     .load(recipe.getImage())
                     .placeholder(R.drawable.loading_animation)
                     .error(R.drawable.recipe_image)
                     .into(imageView);
+            }
             itemView.setOnClickListener(v -> listener.onItemClick(recipe));
         }
     }

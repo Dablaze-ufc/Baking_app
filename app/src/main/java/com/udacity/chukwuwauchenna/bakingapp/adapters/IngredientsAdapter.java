@@ -33,9 +33,9 @@ public class IngredientsAdapter extends
         }
 
         void bind(Ingredient ingredient) {
-            TextView ingredientText = itemView.findViewById(R.id.ingredient_textView);
-            TextView quantityText = itemView.findViewById(R.id.quantity_textView);
-            TextView measureText = itemView.findViewById(R.id.measure_textView);
+            TextView ingredientText = itemView.findViewById(R.id.text_ingredient);
+            TextView quantityText = itemView.findViewById(R.id.text_quantity);
+            TextView measureText = itemView.findViewById(R.id.text_measure);
 
             ingredientText.setText(ingredient.getIngredient());
             quantityText.setText(String.valueOf(ingredient.getQuantity()));
