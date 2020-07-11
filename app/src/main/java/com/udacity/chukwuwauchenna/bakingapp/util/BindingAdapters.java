@@ -1,14 +1,15 @@
 package com.udacity.chukwuwauchenna.bakingapp.util;
 
-import com.project.segunfrancis.bakingtime.model.Ingredient;
-import com.project.segunfrancis.bakingtime.ui.adapters.IngredientsAdapter;
-
-import java.util.List;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.udacity.chukwuwauchenna.bakingapp.adapters.IngredientsAdapter;
+import com.udacity.chukwuwauchenna.bakingapp.model.Ingredient;
+
+import java.util.List;
 
 /**
  * Created by ChukwuwaUchenna
