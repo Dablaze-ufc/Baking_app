@@ -3,16 +3,14 @@ package com.udacity.chukwuwauchenna.bakingapp.ui.details;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-
 import com.udacity.chukwuwauchenna.bakingapp.R;
 import com.udacity.chukwuwauchenna.bakingapp.adapters.StepAdapter;
 import com.udacity.chukwuwauchenna.bakingapp.databinding.ActivityDetailsBinding;
 import com.udacity.chukwuwauchenna.bakingapp.model.Recipe;
 import com.udacity.chukwuwauchenna.bakingapp.model.Step;
+import com.udacity.chukwuwauchenna.bakingapp.ui.SharedViewModel;
 import com.udacity.chukwuwauchenna.bakingapp.ui.steps.StepsDetailsActivity;
 
 import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.INTENT_KEY;
@@ -25,7 +23,7 @@ import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.isTablet;
 public class DetailsActivity extends AppCompatActivity implements StepAdapter.OnStepItemClickListener {
 
     private ActivityDetailsBinding binding;
-    private DetailsActivityViewModel mViewModel;
+    private SharedViewModel mViewModel;
     private Recipe recipe;
 
     @Override
@@ -35,23 +33,25 @@ public class DetailsActivity extends AppCompatActivity implements StepAdapter.On
         if (getIntent() != null) {
             Intent intent = getIntent();
             recipe = (Recipe) intent.getSerializableExtra(INTENT_KEY);
-            Log.d("TAG", "onCreate: " + recipe.getSteps().toString());
-            DetailsActivityViewModel.DetailsViewModelFactory factory = new DetailsActivityViewModel.DetailsViewModelFactory(this.getApplication(), recipe);
-            mViewModel = new ViewModelProvider(this, factory).get(DetailsActivityViewModel.class);
-            binding.setViewModel(mViewModel);
+
+             mViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+            mViewModel.setRecipeMutableLiveData(recipe);
+            binding.setRecipe(recipe);
         }
 
         if (!isTablet(this)){
             if (recipe != null && getSupportActionBar() != null){
                 getSupportActionBar().setTitle(recipe.getName());
+                mViewModel.getRecipeMutableLiveData().observe(this, recipeList ->{
+                    StepAdapter adapter = new StepAdapter(recipeList.getSteps(),this);
+                    assert binding.stepsRecyclerView != null;
+                    binding.stepsRecyclerView.setAdapter(adapter);
+                });
             }
         }
 
 
-        mViewModel.recipeLiveData().observe(this, recipeList ->{
-         StepAdapter adapter = new StepAdapter(recipeList.getSteps(),this);
-         binding.stepsRecyclerView.setAdapter(adapter);
-        });
+
 
     }
 

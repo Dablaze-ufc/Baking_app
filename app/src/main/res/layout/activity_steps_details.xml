@@ -7,8 +7,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="viewModel"
-            type="com.udacity.chukwuwauchenna.bakingapp.ui.steps.StepsDetailsViewModel" />
+            name="steps"
+            type="com.udacity.chukwuwauchenna.bakingapp.model.Step" />
 
     </data>
     <ScrollView
@@ -32,7 +32,7 @@
                 android:id="@+id/video_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{viewModel.mSteps.videoURL == `` ? View.INVISIBLE : View.VISIBLE}" />
+                android:visibility="@{steps.videoURL == `` ? View.INVISIBLE : View.VISIBLE}" />
 
             <ImageView
                 android:id="@+id/no_video_imageView"
@@ -41,7 +41,7 @@
                 android:contentDescription="@string/no_video_available"
                 android:scaleType="centerCrop"
                 android:src="@drawable/no_video"
-                android:visibility="@{viewModel.mSteps.videoURL == `` ? View.VISIBLE : View.INVISIBLE}" />
+                android:visibility="@{steps.videoURL == `` ? View.VISIBLE : View.INVISIBLE}" />
         </FrameLayout>
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@{viewModel.mSteps.description}"
+            android:text="@{steps.description}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

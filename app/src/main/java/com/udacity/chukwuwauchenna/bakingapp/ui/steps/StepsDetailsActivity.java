@@ -2,8 +2,6 @@ package com.udacity.chukwuwauchenna.bakingapp.ui.steps;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +16,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.udacity.chukwuwauchenna.bakingapp.R;
 import com.udacity.chukwuwauchenna.bakingapp.databinding.ActivityStepsDetailsBinding;
 import com.udacity.chukwuwauchenna.bakingapp.model.Step;
+import com.udacity.chukwuwauchenna.bakingapp.ui.details.DetailsActivity;
 
 import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.INTENT_KEY;
 import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.USER_AGENT;
@@ -35,11 +34,10 @@ public class StepsDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_steps_details);
         if (getIntent() != null) {
+
             Step step = (Step) getIntent().getSerializableExtra(INTENT_KEY);
-            StepsDetailsViewModel.StepsDetailsViewModelFactory factory = new StepsDetailsViewModel.StepsDetailsViewModelFactory(step);
-            StepsDetailsViewModel viewModel = new ViewModelProvider(this, factory).get(StepsDetailsViewModel.class);
-            binding.setViewModel(viewModel);
-            setLandscapeOrPortrait(viewModel.mSteps);
+            binding.setSteps(step);
+            setLandscapeOrPortrait(step);
             initializePlayer();
 
         }

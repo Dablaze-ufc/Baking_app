@@ -3,6 +3,8 @@ package com.udacity.chukwuwauchenna.bakingapp.ui.main;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import com.udacity.chukwuwauchenna.bakingapp.model.Recipe;
 import com.udacity.chukwuwauchenna.bakingapp.ui.details.DetailsActivity;
 
 import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.INTENT_KEY;
+import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.isTablet;
 
 public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnItemClickListener {
 
@@ -43,6 +46,14 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
                     binding.progBar.setVisibility(View.GONE);
             }
         });
+
+        if (isTablet(MainActivity.this)) {
+            binding.recipeRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
+//            binding.recipeRecyclerView.addItemDecoration(new MarginItemDecorationTablet(16));
+        } else {
+            binding.recipeRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+//            mBinding.recipeRecyclerView.addItemDecoration(new MarginItemDecoration(16));
+        }
     }
 
     @Override

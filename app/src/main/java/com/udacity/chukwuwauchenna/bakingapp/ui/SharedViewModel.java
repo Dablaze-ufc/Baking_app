@@ -1,4 +1,4 @@
-package com.udacity.chukwuwauchenna.bakingapp.ui.details;
+package com.udacity.chukwuwauchenna.bakingapp.ui;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -11,22 +11,37 @@ import com.udacity.chukwuwauchenna.bakingapp.database.Repository;
 import com.udacity.chukwuwauchenna.bakingapp.model.Ingredient;
 import com.udacity.chukwuwauchenna.bakingapp.model.IngredientsForWidget;
 import com.udacity.chukwuwauchenna.bakingapp.model.Recipe;
+import com.udacity.chukwuwauchenna.bakingapp.model.Step;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailsActivityViewModel extends AndroidViewModel {
+public class SharedViewModel extends AndroidViewModel {
     private Repository mRepo;
-    public Recipe mRecipe;
     private MutableLiveData<Recipe> _reciepe = new MutableLiveData<>();
-    public DetailsActivityViewModel(@NonNull Application application, Recipe recipe) {
+    private MutableLiveData<Step> _steps = new MutableLiveData<>();
+    public SharedViewModel(@NonNull Application application) {
         super(application);
         mRepo = new Repository(application);
-        this.mRecipe = recipe;
-//        saveIngredients();
         }
 
-        private void saveIngredients(){
+    public LiveData<Recipe> getRecipeMutableLiveData() {
+        return _reciepe;
+    }
+
+    public void setRecipeMutableLiveData(Recipe recipe) {
+        _reciepe.setValue(recipe);
+    }
+
+    public LiveData<Step> getStepMutableLiveData() {
+        return _steps;
+    }
+
+    public void setStepMutableLiveData(Step step) {
+        _steps.setValue(step);
+    }
+
+        private void saveIngredients(Recipe mRecipe){
             List<Ingredient> ingredients = mRecipe.getIngredients();
             List<String> ingredientsForWidget = new ArrayList<>();
             for (Ingredient a : ingredients) {
@@ -38,28 +53,10 @@ public class DetailsActivityViewModel extends AndroidViewModel {
                 mRepo.insertIngredients(forWidget);
         }
     }
-    public LiveData<Recipe> recipeLiveData(){
-        _reciepe.setValue(mRecipe);
-        return _reciepe;
-    }
+//    public LiveData<Recipe> recipeLiveData(){
+//        _reciepe.setValue(mRecipe);
+//        return _reciepe;
+//    }
 
-    static class DetailsViewModelFactory implements ViewModelProvider.Factory {
-        private Application app;
-        private Recipe recipe;
-        public DetailsViewModelFactory(@NonNull Application application, Recipe recipe){
-            this.app = application;
-            this.recipe = recipe;
 
-        }
-
-        @NonNull
-        @Override
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            if (modelClass.equals(DetailsActivityViewModel.class))
-                return (T) new DetailsActivityViewModel(app, recipe);
-            else {
-           return null;
-        }
-        }
-    }
 }
