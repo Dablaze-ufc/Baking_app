@@ -2,6 +2,7 @@ package com.udacity.chukwuwauchenna.bakingapp;
 
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
+import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -18,6 +19,13 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Created by ChukwuwaUchenna
@@ -38,14 +46,24 @@ public class ActivityUiTests {
         IdlingRegistry.getInstance().register(mIdlingResource);
     }
 
+
+
     @Test
     public void checkRecyclerViewItemTest() {
-        onView(ViewMatchers.withId(R.id.recipe_recyclerView)).perform(RecyclerViewActions.scrollToPosition(2));
-    }
+
+        ViewInteraction recyclerView = onView(withId(R.id.recipe_recyclerView));
+        recyclerView.perform(actionOnItemAtPosition(0, click()));}
 
     @Test
     public void test_checkIfRecipeRecyclerViewIsVisible() {
-        onView(ViewMatchers.withId(R.id.recipe_recyclerView)).perform(RecyclerViewActions.scrollToPosition(1)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+
+        onView(ViewMatchers.withId(R.id.recipe_recyclerView))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+    }
+
+    @Test
+    public void is_recyclerViewDisplayed(){
+        onView(withId(R.id.recipe_recyclerView)).check(matches(isDisplayed()));
     }
 
     @After

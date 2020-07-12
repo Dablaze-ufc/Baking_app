@@ -36,7 +36,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     private void getRecipe() {
-            _state.setValue(State.ERROR);
+            _state.setValue(State.LOADING);
 
         mRepo.getRecipe().enqueue(new Callback<List<Recipe>>() {
             @Override

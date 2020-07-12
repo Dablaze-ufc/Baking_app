@@ -8,7 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.squareup.picasso.Picasso;
+
+import com.bumptech.glide.Glide;
 import com.udacity.chukwuwauchenna.bakingapp.R;
 import com.udacity.chukwuwauchenna.bakingapp.model.Step;
 
@@ -39,16 +40,11 @@ public class StepAdapter extends
             TextView stepText = itemView.findViewById(R.id.step_text_name);
             ImageView thumbnail = itemView.findViewById(R.id.image_thumbnail);
             stepText.setText(step.getShortDescription());
-            if (TextUtils.isEmpty(step.getThumbnailURL())){
-                thumbnail.setImageResource(R.drawable.ic_cupcake);
 
-            }else {
-            Picasso.get().load(step.getThumbnailURL())
+            Glide.with(itemView.getContext()).load(step.getThumbnailURL())
                     .placeholder(R.drawable.loading_animation)
                     .error(R.drawable.recipe_image)
                     .into(thumbnail);
-
-           }
             stepText.setOnClickListener(v -> listener.onStepItemClicked(step));
         }
     }

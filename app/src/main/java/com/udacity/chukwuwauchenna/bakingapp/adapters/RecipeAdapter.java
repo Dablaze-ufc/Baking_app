@@ -1,6 +1,5 @@
 package com.udacity.chukwuwauchenna.bakingapp.adapters;
 
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.udacity.chukwuwauchenna.bakingapp.R;
 import com.udacity.chukwuwauchenna.bakingapp.model.Recipe;
 
@@ -39,16 +38,13 @@ public class RecipeAdapter extends
             textView.setText(recipe.getName());
             ImageView imageView = itemView.findViewById(R.id.imageView_recipe);
             Log.d("TAG", "bind: "+ recipe.getImage());
-            if (TextUtils.isEmpty(recipe.getImage())){
-               imageView.setImageResource(R.drawable.recipe_image);
 
-            }else {
-           Picasso.get()
+           Glide.with(itemView.getContext())
                     .load(recipe.getImage())
                     .placeholder(R.drawable.loading_animation)
                     .error(R.drawable.recipe_image)
                     .into(imageView);
-            }
+
             itemView.setOnClickListener(v -> listener.onItemClick(recipe));
         }
     }
