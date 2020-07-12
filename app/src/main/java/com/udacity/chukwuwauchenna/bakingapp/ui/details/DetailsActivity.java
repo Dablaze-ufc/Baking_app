@@ -36,6 +36,7 @@ public class DetailsActivity extends AppCompatActivity implements StepAdapter.On
 
              mViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
             mViewModel.setRecipeMutableLiveData(recipe);
+            mViewModel.saveIngredients(recipe);
             binding.setRecipe(recipe);
         }
 

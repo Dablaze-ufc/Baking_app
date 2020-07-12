@@ -23,6 +23,7 @@ public class SharedViewModel extends AndroidViewModel {
     public SharedViewModel(@NonNull Application application) {
         super(application);
         mRepo = new Repository(application);
+
         }
 
     public LiveData<Recipe> getRecipeMutableLiveData() {
@@ -41,7 +42,7 @@ public class SharedViewModel extends AndroidViewModel {
         _steps.setValue(step);
     }
 
-        private void saveIngredients(Recipe mRecipe){
+        public void saveIngredients(Recipe mRecipe){
             List<Ingredient> ingredients = mRecipe.getIngredients();
             List<String> ingredientsForWidget = new ArrayList<>();
             for (Ingredient a : ingredients) {

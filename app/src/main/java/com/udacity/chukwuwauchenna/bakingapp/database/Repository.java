@@ -1,6 +1,7 @@
 package com.udacity.chukwuwauchenna.bakingapp.database;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.udacity.chukwuwauchenna.bakingapp.database.local.IngredientExecutors;
 import com.udacity.chukwuwauchenna.bakingapp.database.local.IngredientRoomDatabase;
@@ -18,8 +19,8 @@ public class Repository {
     private IngredientsDAO mDAO;
     private RetrofitAPIService mClient;
 
-    public Repository(Application application){
-        mDAO = IngredientRoomDatabase.getDatabase(application).mRecipeDao();
+    public Repository(Context context){
+        mDAO = IngredientRoomDatabase.getDatabase(context).mRecipeDao();
         mClient = RetrofitClient.getClient().create(RetrofitAPIService.class);
 
     }
@@ -33,4 +34,9 @@ public class Repository {
             mDAO.insertIngredients(widget);
         });
     }
+
+    public IngredientsForWidget getIngredients(){
+        return mDAO.getIngredients();
+    }
+
 }

@@ -43,6 +43,7 @@ public class DetailsFragment extends Fragment implements StepAdapter.OnStepItemC
         super.onViewCreated(view, savedInstanceState);
         viewModel.getRecipeMutableLiveData().observe(getViewLifecycleOwner(),recipe -> {
             binding.setRecipe(recipe);
+            viewModel.saveIngredients(recipe);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(recipe.getName());
             IngredientsAdapter ingredientsAdapter = new IngredientsAdapter(recipe.getIngredients());
             Log.d("TAG", "onViewCreated: " + recipe.getIngredients());
