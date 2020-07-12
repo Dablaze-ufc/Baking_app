@@ -43,8 +43,8 @@ public class IntentTests {
 
     @Before
     public void registerIdlingResource() {
-//        mIdlingResource = mActivityTestRule.getActivity().getIdlingResource();
-        IdlingRegistry.getInstance().register(mActivityTestRule.getActivity().getIdlingResource());
+        mIdlingResource = mActivityTestRule.getActivity().getIdlingResource();
+        IdlingRegistry.getInstance().register(mIdlingResource);
     }
 
     @Before

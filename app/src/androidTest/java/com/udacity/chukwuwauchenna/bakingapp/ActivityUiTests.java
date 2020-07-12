@@ -16,16 +16,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 /**
  * Created by ChukwuwaUchenna
@@ -46,11 +42,8 @@ public class ActivityUiTests {
         IdlingRegistry.getInstance().register(mIdlingResource);
     }
 
-
-
     @Test
     public void checkRecyclerViewItemTest() {
-
         ViewInteraction recyclerView = onView(withId(R.id.recipe_recyclerView));
         recyclerView.perform(actionOnItemAtPosition(0, click()));}
 
