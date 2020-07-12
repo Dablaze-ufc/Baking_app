@@ -27,7 +27,7 @@ public abstract class IngredientRoomDatabase extends RoomDatabase {
                             context.getApplicationContext(),
                             IngredientRoomDatabase.class,
                             "recipe-database"
-                    ).allowMainThreadQueries().build();
+                    ).build();
                 }
             }
         }
