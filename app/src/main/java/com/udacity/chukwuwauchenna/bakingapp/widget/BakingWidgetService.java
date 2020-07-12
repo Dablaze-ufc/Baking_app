@@ -2,42 +2,35 @@ package com.udacity.chukwuwauchenna.bakingapp.widget;
 
 import android.content.Context;
 import android.content.Intent;
-
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
 import com.udacity.chukwuwauchenna.bakingapp.R;
-import com.udacity.chukwuwauchenna.bakingapp.database.Repository;
+import com.udacity.chukwuwauchenna.bakingapp.model.Ingredient;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class GridWidgetService extends RemoteViewsService {
-    List<String> remoteIngredientList = new ArrayList<>();
+public class BakingWidgetService extends RemoteViewsService {
+    private List<Ingredient> ingredients;
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new GridRemoteViewsFactory(this.getApplicationContext(), intent);
+        return new BakingRemoteViewsFactory(getApplicationContext());
 
     }
 
-    class GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+    private class BakingRemoteViewsFactory implements RemoteViewsFactory {
         private Context mContext;
-        private Repository mRepo;
 
-        GridRemoteViewsFactory(Context context, Intent intent) {
+        BakingRemoteViewsFactory(Context context) {
             mContext = context;
         }
         @Override
         public void onCreate() {
-            mRepo = new Repository(mContext);
-            remoteIngredientList = mRepo.getIngredients().getIngredients();
+
         }
 
         @Override
         public void onDataSetChanged() {
-            mRepo = new Repository(mContext);
-            remoteIngredientList = mRepo.getIngredients().getIngredients();
-
+            ingredients = BakingAppWidget.ingredients;
         }
 
         @Override
@@ -47,13 +40,19 @@ public class GridWidgetService extends RemoteViewsService {
 
         @Override
         public int getCount() {
-            return remoteIngredientList.size();
+            if (ingredients == null) return 0;
+            return ingredients.size();
         }
 
         @Override
         public RemoteViews getViewAt(int position) {
+
             RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.baking_app_widget);
-            remoteViews.setTextViewText(R.id.widget_text_app, remoteIngredientList.get(position));
+            Ingredient ingredient = ingredients.get(position);
+
+            String measure = String.valueOf(ingredient.getQuantity());
+            String widget_ingredients = ingredient.getIngredient();
+            remoteViews.setTextViewText(R.id.widget_item_text_view, widget_ingredients  + "   " + measure);
             return remoteViews;
         }
 
@@ -69,12 +68,12 @@ public class GridWidgetService extends RemoteViewsService {
 
         @Override
         public long getItemId(int position) {
-            return position;
+            return 0;
         }
 
         @Override
         public boolean hasStableIds() {
-            return true;
+            return false;
         }
     }
 }

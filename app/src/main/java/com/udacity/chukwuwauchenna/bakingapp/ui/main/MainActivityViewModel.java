@@ -35,6 +35,11 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     }
 
+    private void saveIngredients(List<Recipe> mRecipe) {
+        mRepo.insertIngredients(mRecipe);
+    }
+
+
     private void getRecipe() {
             _state.setValue(State.LOADING);
 
@@ -44,6 +49,7 @@ public class MainActivityViewModel extends AndroidViewModel {
                     _recipeList.setValue(response.body());
                     _state.setValue(State.SUCCESS);
                     _message.setValue("Success");
+                    saveIngredients(response.body());
             }
 
             @Override

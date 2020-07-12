@@ -1,12 +1,14 @@
 package com.udacity.chukwuwauchenna.bakingapp.database.local;
 
 
+
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import com.udacity.chukwuwauchenna.bakingapp.model.Recipe;
 
-import com.udacity.chukwuwauchenna.bakingapp.model.IngredientsForWidget;
+import java.util.List;
 
 /**
  * Created by ChukwuwaUchenna
@@ -16,8 +18,8 @@ import com.udacity.chukwuwauchenna.bakingapp.model.IngredientsForWidget;
 public interface IngredientsDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertIngredients(IngredientsForWidget ingredients);
+    void insertRecipe(List<Recipe> recipe);
 
-    @Query("SELECT * FROM ingredient_for_widget")
-    IngredientsForWidget getIngredients();
+    @Query("SELECT * FROM recipe_table")
+    List<Recipe> getRecipe();
 }

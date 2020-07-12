@@ -20,6 +20,8 @@ import com.udacity.chukwuwauchenna.bakingapp.adapters.StepAdapter;
 import com.udacity.chukwuwauchenna.bakingapp.databinding.FragmentDetailsBinding;
 import com.udacity.chukwuwauchenna.bakingapp.model.Step;
 import com.udacity.chukwuwauchenna.bakingapp.ui.SharedViewModel;
+import com.udacity.chukwuwauchenna.bakingapp.widget.BakingAppWidget;
+import com.udacity.chukwuwauchenna.bakingapp.widget.BakingWidgetService;
 
 /**
  * Created by ChukwuwaUchenna
@@ -43,7 +45,7 @@ public class DetailsFragment extends Fragment implements StepAdapter.OnStepItemC
         super.onViewCreated(view, savedInstanceState);
         viewModel.getRecipeMutableLiveData().observe(getViewLifecycleOwner(),recipe -> {
             binding.setRecipe(recipe);
-            viewModel.saveIngredients(recipe);
+//            viewModel.saveIngredients(recipe);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(recipe.getName());
             IngredientsAdapter ingredientsAdapter = new IngredientsAdapter(recipe.getIngredients());
             Log.d("TAG", "onViewCreated: " + recipe.getIngredients());
@@ -57,6 +59,8 @@ public class DetailsFragment extends Fragment implements StepAdapter.OnStepItemC
             binding.stepsRecyclerView.addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
 
         });
+
+
     }
 
     @Override

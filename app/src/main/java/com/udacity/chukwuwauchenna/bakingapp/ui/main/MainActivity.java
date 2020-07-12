@@ -12,7 +12,6 @@ import androidx.test.espresso.IdlingResource;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import com.udacity.chukwuwauchenna.bakingapp.R;
 import com.udacity.chukwuwauchenna.bakingapp.adapters.RecipeAdapter;
 import com.udacity.chukwuwauchenna.bakingapp.databinding.ActivityMainBinding;
@@ -53,13 +52,10 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
                 if (mIdlingResource != null){
                     mIdlingResource.setIdleState(true);
                 }
-
             }
         });
 
         viewModel.state.observe(this, state -> {
-
-
             switch (state){
                 case ERROR:
                     binding.progBar.setVisibility(View.GONE);
@@ -69,12 +65,8 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
                     mIdlingResource.setIdleState(false);}
                 case SUCCESS:
                     binding.progBar.setVisibility(View.GONE);
-
-
             }
         });
-
-
 
         if (isTablet(MainActivity.this)) {
             binding.recipeRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));

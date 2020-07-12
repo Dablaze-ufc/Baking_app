@@ -1,5 +1,8 @@
 package com.udacity.chukwuwauchenna.bakingapp.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.squareup.moshi.Json;
 
 import java.io.Serializable;
@@ -9,7 +12,10 @@ import java.util.List;
  * Created by chukwuwaUchenna
  */
 
+@Entity(tableName = "recipe_table")
 public class Recipe implements Serializable {
+
+    @PrimaryKey
     @Json(name = "id")
     private Integer id;
 

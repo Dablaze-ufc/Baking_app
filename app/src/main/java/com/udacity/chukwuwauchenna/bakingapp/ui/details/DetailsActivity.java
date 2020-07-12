@@ -12,6 +12,7 @@ import com.udacity.chukwuwauchenna.bakingapp.model.Recipe;
 import com.udacity.chukwuwauchenna.bakingapp.model.Step;
 import com.udacity.chukwuwauchenna.bakingapp.ui.SharedViewModel;
 import com.udacity.chukwuwauchenna.bakingapp.ui.steps.StepsDetailsActivity;
+import com.udacity.chukwuwauchenna.bakingapp.widget.BakingAppWidget;
 
 import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.INTENT_KEY;
 import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.isTablet;
@@ -36,7 +37,8 @@ public class DetailsActivity extends AppCompatActivity implements StepAdapter.On
 
              mViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
             mViewModel.setRecipeMutableLiveData(recipe);
-            mViewModel.saveIngredients(recipe);
+            mViewModel.addToPrefsForWidget(recipe);
+            BakingAppWidget.updateWidget(this);
             binding.setRecipe(recipe);
         }
 

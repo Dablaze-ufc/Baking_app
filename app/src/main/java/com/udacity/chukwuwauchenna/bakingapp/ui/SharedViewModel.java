@@ -1,30 +1,33 @@
 package com.udacity.chukwuwauchenna.bakingapp.ui;
 
+
 import android.app.Application;
+import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import com.udacity.chukwuwauchenna.bakingapp.database.Repository;
-import com.udacity.chukwuwauchenna.bakingapp.model.Ingredient;
-import com.udacity.chukwuwauchenna.bakingapp.model.IngredientsForWidget;
 import com.udacity.chukwuwauchenna.bakingapp.model.Recipe;
 import com.udacity.chukwuwauchenna.bakingapp.model.Step;
 
-import java.util.ArrayList;
-import java.util.List;
+import static android.content.Context.MODE_PRIVATE;
+import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.ID_PREF;
+import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.NAME_PREF;
+import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.WIDGET_PREF;
 
 public class SharedViewModel extends AndroidViewModel {
-    private Repository mRepo;
+
     private MutableLiveData<Recipe> _reciepe = new MutableLiveData<>();
     private MutableLiveData<Step> _steps = new MutableLiveData<>();
+    private Application application;
+
     public SharedViewModel(@NonNull Application application) {
         super(application);
-        mRepo = new Repository(application);
+        this.application = application;
+    }
 
-        }
 
     public LiveData<Recipe> getRecipeMutableLiveData() {
         return _reciepe;
@@ -38,26 +41,18 @@ public class SharedViewModel extends AndroidViewModel {
         return _steps;
     }
 
+    public void addToPrefsForWidget(Recipe recipe) {
+        SharedPreferences preferences = application.getSharedPreferences(WIDGET_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(ID_PREF, recipe.getId());
+        editor.putString(NAME_PREF, recipe.getName());
+        editor.apply();
+    }
+
     public void setStepMutableLiveData(Step step) {
         _steps.setValue(step);
     }
-
-        public void saveIngredients(Recipe mRecipe){
-            List<Ingredient> ingredients = mRecipe.getIngredients();
-            List<String> ingredientsForWidget = new ArrayList<>();
-            for (Ingredient a : ingredients) {
-                ingredientsForWidget.add(a.getIngredient() + "\n" +
-                        "Quantity: " + a.getQuantity() + "\n" +
-                        "Measure: " + a.getMeasure() + "\n");
-                IngredientsForWidget forWidget = new IngredientsForWidget();
-                forWidget.setIngredients(ingredientsForWidget);
-                mRepo.insertIngredients(forWidget);
-        }
-    }
-//    public LiveData<Recipe> recipeLiveData(){
-//        _reciepe.setValue(mRecipe);
-//        return _reciepe;
-//    }
-
-
 }
+
+
+
