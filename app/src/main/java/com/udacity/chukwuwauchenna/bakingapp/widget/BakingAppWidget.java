@@ -9,15 +9,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.udacity.chukwuwauchenna.bakingapp.R;
 import com.udacity.chukwuwauchenna.bakingapp.model.Ingredient;
 import com.udacity.chukwuwauchenna.bakingapp.ui.details.DetailsActivity;
 import com.udacity.chukwuwauchenna.bakingapp.ui.main.MainActivity;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.ID_PREF;
+import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.INGREDIENT_PREF;
 import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.NAME_PREF;
 import static com.udacity.chukwuwauchenna.bakingapp.util.Constants.WIDGET_PREF;
 
@@ -33,7 +37,11 @@ public class BakingAppWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(WIDGET_PREF, Context.MODE_PRIVATE);
-        int id = sharedPreferences.getInt(ID_PREF, 0);
+        Gson gson = new Gson();
+        Type itemType = new TypeToken<List<Ingredient>>() {
+        }.getType();
+        String ingredientsString = sharedPreferences.getString(INGREDIENT_PREF,null);
+        ingredients = gson.fromJson(ingredientsString, itemType);
 
         text = sharedPreferences.getString(NAME_PREF, "no recipe");
         // Construct the RemoteViews object
@@ -44,10 +52,14 @@ public class BakingAppWidget extends AppWidgetProvider {
         Intent clickIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, clickIntent, 0);
         views.setOnClickPendingIntent(R.id.widget_text_app, pendingIntent);
+        //set adapter
+        Intent intent = new Intent(context, BakingWidgetService.class);
+        views.setRemoteAdapter(R.id.widget_list_view, intent);
 
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list_view);
     }
 
     public static void updateWidget(Context context) {

@@ -2,6 +2,7 @@ package com.udacity.chukwuwauchenna.bakingapp.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 import com.udacity.chukwuwauchenna.bakingapp.R;
@@ -25,7 +26,7 @@ public class BakingWidgetService extends RemoteViewsService {
         }
         @Override
         public void onCreate() {
-
+            ingredients = BakingAppWidget.ingredients;
         }
 
         @Override
@@ -47,12 +48,12 @@ public class BakingWidgetService extends RemoteViewsService {
         @Override
         public RemoteViews getViewAt(int position) {
 
-            RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.baking_app_widget);
+            RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.widget_list_item);
             Ingredient ingredient = ingredients.get(position);
 
             String measure = String.valueOf(ingredient.getQuantity());
             String widget_ingredients = ingredient.getIngredient();
-            remoteViews.setTextViewText(R.id.widget_text_app, widget_ingredients  + "   " + measure);
+            remoteViews.setTextViewText(R.id.widget_list_item_text, widget_ingredients  + "   " + measure);
             return remoteViews;
         }
 
@@ -68,12 +69,12 @@ public class BakingWidgetService extends RemoteViewsService {
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         @Override
         public boolean hasStableIds() {
-            return false;
+            return true;
         }
     }
 }

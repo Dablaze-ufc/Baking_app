@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#66FF0000"
     android:padding="8dp">
 
@@ -10,10 +11,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:text="@string/recipes"
+        android:layout_marginBottom="4dp"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold|italic"/>
+    <ListView
+        android:id="@+id/widget_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/widget_text_app"
+        tools:listitem="@layout/widget_list_item"/>
 
 </RelativeLayout>

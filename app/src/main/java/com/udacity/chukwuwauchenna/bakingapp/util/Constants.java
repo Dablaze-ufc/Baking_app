@@ -3,7 +3,9 @@ package com.udacity.chukwuwauchenna.bakingapp.util;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.view.View;
+
 import com.google.android.exoplayer2.ui.PlayerView;
+
 import java.io.IOException;
 
 public class Constants {
@@ -19,6 +21,7 @@ public class Constants {
     public static final String WIDGET_PREF = "widget_prefs";
     public static final String ID_PREF = "id";
     public static final String NAME_PREF = "name";
+    public static final String INGREDIENT_PREF = "Ingrerdients";
 
     public static boolean playWhenReady = true;
     public static int currentWindow = 0;
