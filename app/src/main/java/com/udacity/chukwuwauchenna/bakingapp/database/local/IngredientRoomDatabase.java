@@ -13,7 +13,7 @@ import androidx.room.TypeConverters;
  * Created by ChukwuwaUchenna
  */
 @Database(entities = {Recipe.class}, exportSchema = false, version = 1)
-@TypeConverters(Converter.class)
+@TypeConverters({Converter.class, Converter.StepsConverter.class})
 public abstract class IngredientRoomDatabase extends RoomDatabase {
     public abstract IngredientsDAO mRecipeDao();
 

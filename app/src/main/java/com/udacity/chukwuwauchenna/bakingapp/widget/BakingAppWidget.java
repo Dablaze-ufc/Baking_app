@@ -40,10 +40,6 @@ public class BakingAppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
         views.setTextViewText(R.id.widget_text_app, text);
 
-        //Set adapter
-        Intent intent = new Intent(context, BakingWidgetService.class);
-        views.setRemoteAdapter(R.id.recipe_list, intent);
-
         //open mainActivity when title is clicked
         Intent clickIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, clickIntent, 0);
@@ -52,7 +48,6 @@ public class BakingAppWidget extends AppWidgetProvider {
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.recipe_list);
     }
 
     public static void updateWidget(Context context) {

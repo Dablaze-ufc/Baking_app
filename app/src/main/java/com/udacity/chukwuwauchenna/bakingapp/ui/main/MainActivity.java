@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
 
 
 
-        viewModel.recipeList.observe(this, recipes -> {
+        viewModel.recipeList().observe(this, recipes -> {
             if(recipes != null){
             RecipeAdapter adapter = new RecipeAdapter(recipes, this);
             binding.recipeRecyclerView.setAdapter(adapter);

@@ -2,6 +2,9 @@ package com.udacity.chukwuwauchenna.bakingapp.database;
 
 
 import android.content.Context;
+
+import androidx.lifecycle.LiveData;
+
 import com.udacity.chukwuwauchenna.bakingapp.database.local.IngredientExecutors;
 import com.udacity.chukwuwauchenna.bakingapp.database.local.IngredientRoomDatabase;
 import com.udacity.chukwuwauchenna.bakingapp.database.local.IngredientsDAO;
@@ -26,8 +29,12 @@ public class Repository {
         return mClient.getRecipe();
     }
 
-    public void insertIngredients(List<Recipe> recipeListForWidget){
+    public void insertRecipe(List<Recipe> recipeListForWidget){
         IngredientExecutors.getInstance().diskIO().execute(() -> mDAO.insertRecipe(recipeListForWidget));
+    }
+
+    public LiveData<List<Recipe>> recipeList() {
+        return mDAO.getRecipe();
     }
 
 }

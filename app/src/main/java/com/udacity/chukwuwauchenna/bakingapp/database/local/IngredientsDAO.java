@@ -2,6 +2,7 @@ package com.udacity.chukwuwauchenna.bakingapp.database.local;
 
 
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -21,5 +22,5 @@ public interface IngredientsDAO {
     void insertRecipe(List<Recipe> recipe);
 
     @Query("SELECT * FROM recipe_table")
-    List<Recipe> getRecipe();
+    LiveData<List<Recipe>> getRecipe();
 }

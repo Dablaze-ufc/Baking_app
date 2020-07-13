@@ -52,7 +52,7 @@ public class BakingWidgetService extends RemoteViewsService {
 
             String measure = String.valueOf(ingredient.getQuantity());
             String widget_ingredients = ingredient.getIngredient();
-            remoteViews.setTextViewText(R.id.widget_item_text_view, widget_ingredients  + "   " + measure);
+            remoteViews.setTextViewText(R.id.widget_text_app, widget_ingredients  + "   " + measure);
             return remoteViews;
         }
 
